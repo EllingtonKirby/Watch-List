@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Watch List</string>
+    <string name="search_default_text">Search for Movies!</string>
+    <string name="default_list_view_text">No Data</string>
+    <string name="default_item_title_text">A List item title</string>
+    <string name="default_item_year_text">The List item year</string>
+    <string name="default_item_type_text">The List item type</string>
+    <string name="default_item_plot_text">Plot</string>
+    <string name="default_item_director_text">Director</string>
+    <string name="default_item_actors_text">Actors</string>
+    <string name="default_item_writer_text">Writers</string>
+    <string name="default_item_rating_text">Rating</string>
+    <string name="default_item_tomatometer_text">tomatoMeter</string>
+    <string name="default_item_imdbrating_text">imdbRating</string>
+    <string name="default_item_genre_text">Genre</string>
+    <string name="default_item_runtime_text">Runtime</string>
+    <string name="default_item_language_text">Language</string>
+    <string name="title_activity_omdb_specific_movie">OmdbSpecificMovieActivity</string>
+</resources>
