@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 public class OmdbObject implements Serializable{
 
+    private int id;
     private String title;
     private String movieId;
     private String year;
@@ -59,6 +60,7 @@ public class OmdbObject implements Serializable{
     public String getTomatoMeter() {return tomatoMeter;}
     public String getImdbRating() {return imdbRating;}
     public String getWriters() {return writers;}
+    public int getId(){return id;}
 
     public void setActors(String actors) {
         this.actors = actors;
@@ -90,4 +92,5 @@ public class OmdbObject implements Serializable{
     public void setWriters(String writers) {
         this.writers = writers;
     }
+    public void setId(int id){this.id = id;}
 }
