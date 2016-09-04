@@ -36,7 +36,8 @@
             android:name=".OmdbService"
             android:exported="false" />
 
-        <activity android:name=".OmdbSpecificMovieActivity"></activity>
+        <activity android:name=".OmdbSpecificMovieActivity" />
+        <activity android:name=".ViewWatchListActivity"></activity>
     </application>
 
 </manifest>

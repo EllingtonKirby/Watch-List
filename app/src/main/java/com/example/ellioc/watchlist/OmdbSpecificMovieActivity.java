@@ -1,5 +1,6 @@
 package com.example.ellioc.watchlist;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Handler;
@@ -7,9 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,7 +56,7 @@ public class OmdbSpecificMovieActivity extends AppCompatActivity implements Omdb
             inflateImageView(bitmap);
         }
     }
-    public void inflateView(OmdbObject omdbObject){
+    public void inflateView(final OmdbObject omdbObject){
         TextView textViewTitle = (TextView) findViewById(R.id.textViewTitle);
         assert textViewTitle != null;
         textViewTitle.setText(omdbObject.getTitle());
@@ -98,6 +101,24 @@ public class OmdbSpecificMovieActivity extends AppCompatActivity implements Omdb
         String plot = "Plot: " + omdbObject.getPlot();
         textViewPlot.setText(plot);
 
+        final Button button = (Button) findViewById(R.id.add_to_watch_list_button);
+        assert button != null;
+        final Context mCtx = this;
+        final WatchListDbHelper watchListDbHelper = new WatchListDbHelper(mCtx);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                watchListDbHelper.addOmdbObject(omdbObject);
+                button.setVisibility(View.GONE);
+                CharSequence text = omdbObject.getTitle() + " Added to Watch List!";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(mCtx, text, duration);
+                toast.show();
+            }
+        });
+        if (watchListDbHelper.getObjectByTitle(omdbObject.getTitle()) != null){
+            button.setVisibility(View.GONE);
+        }
 
     }
     public void inflateImageView(Bitmap bitmap){

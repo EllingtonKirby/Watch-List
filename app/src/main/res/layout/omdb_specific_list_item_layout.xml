@@ -88,4 +88,12 @@
         android:hint="@string/default_item_plot_text"
         android:id="@+id/textViewPlot"
     />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add To Watch List"
+        android:id="@+id/add_to_watch_list_button"
+        android:layout_gravity="center_horizontal" />
+
 </LinearLayout>
