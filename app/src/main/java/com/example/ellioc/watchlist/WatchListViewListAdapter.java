@@ -2,11 +2,14 @@ package com.example.ellioc.watchlist;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,7 +20,7 @@ import java.util.List;
 /**
  * Created by Ellioc on 9/3/2016.
  */
-public class WatchListViewListAdapter extends ArrayAdapter<OmdbObject>{
+public class WatchListViewListAdapter extends BaseAdapter{
     private Context mContext;
 
     private LayoutInflater mLayoutInflater;
@@ -29,15 +32,14 @@ public class WatchListViewListAdapter extends ArrayAdapter<OmdbObject>{
         private TextView itemView;
     }
 
-    public WatchListViewListAdapter(Context context, int textViewResourceId, ArrayList<OmdbObject> mEntries,
-                                    View.OnTouchListener listener) {
-        super(context, textViewResourceId, mEntries);
+    public WatchListViewListAdapter(Context context) {
+//        super(context, textViewResourceId, mEntries);
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mTouchListener = listener;
-        for (int i = 0; i < mEntries.size(); ++i) {
-            mIdMap.put(mEntries.get(i), i);
-        }
+//        mTouchListener = listener;
+//        for (int i = 0; i < mEntries.size(); ++i) {
+//            mIdMap.put(mEntries.get(i), i);
+//        }
     }
 
     @Override
@@ -52,8 +54,7 @@ public class WatchListViewListAdapter extends ArrayAdapter<OmdbObject>{
 
     @Override
     public long getItemId(int position) {
-        OmdbObject item = getItem(position);
-        return mIdMap.get(item);
+        return position;
     }
 
     @Override
@@ -62,14 +63,14 @@ public class WatchListViewListAdapter extends ArrayAdapter<OmdbObject>{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
-        RelativeLayout view = (RelativeLayout) mLayoutInflater.inflate(R.layout.omdb_list_item_layout, parent, false);
-//        if(convertView == null){
-//            itemView = (RelativeLayout) mLayoutInflater.inflate(R.layout.omdb_list_item_layout, parent, false);
-//        }
-//        else{
-//            itemView = (RelativeLayout) convertView;
-//        }
+    public View getView(final int position, View convertView, ViewGroup parent){
+        RelativeLayout itemView;
+        if(convertView == null){
+            itemView = (RelativeLayout) mLayoutInflater.inflate(R.layout.watch_list_item_layout, parent, false);
+        }
+        else{
+            itemView = (RelativeLayout) convertView;
+        }
 //        if (convertView == null) {
 //            convertView = LayoutInflater.from(this.getContext())
 //                .inflate(R.layout.omdb_list_item_layout, parent, false);
@@ -90,22 +91,39 @@ public class WatchListViewListAdapter extends ArrayAdapter<OmdbObject>{
 //
 //        itemView.setOnTouchListener(mTouchListener);
 //        return itemView;
-        if(view != convertView) {
-            TextView titleView = (TextView) view.findViewById(R.id.listTitle);
-            titleView.setText(mEntries.get(position).getTitle());
-            TextView yearView = (TextView) view.findViewById(R.id.listYear);
-            yearView.setText(mEntries.get(position).getYear());
-            TextView typeView = (TextView) view.findViewById(R.id.listItemType);
-            typeView.setText(mEntries.get(position).getType());
+        TextView titleView = (TextView) itemView.findViewById(R.id.listTitle);
+        titleView.setText(mEntries.get(position).getTitle());
+        TextView yearView = (TextView) itemView.findViewById(R.id.listYear);
+        yearView.setText(mEntries.get(position).getYear());
+        TextView typeView = (TextView) itemView.findViewById(R.id.listItemType);
+        typeView.setText(mEntries.get(position).getType());
 
-            view.setOnTouchListener(mTouchListener);
-        }
-        return view;
+        ImageButton imageButton = (ImageButton) itemView.findViewById(R.id.imageButton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WatchListDbHelper watchListDbHelper = new WatchListDbHelper(mContext);
+                watchListDbHelper.deleteObject(mEntries.get(position));
+                mEntries.remove(position);
+                upDateEntries(mEntries);
+            }
+        });
+
+//            itemView.setOnTouchListener(mTouchListener);
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, OmdbSpecificMovieActivity.class);
+                intent.putExtra("omdb_object_key", mEntries.get(position).getMovieId());
+                mContext.startActivity(intent);
+            }
+        });
+
+        return itemView;
     }
 
-//    public void upDateEntries(ArrayList<OmdbObject> entries) {
-//        mEntries = entries;
-//
-//        notifyDataSetChanged();
-//    }
+    public void upDateEntries(ArrayList<OmdbObject> entries) {
+        mEntries = entries;
+        notifyDataSetChanged();
+    }
 }
