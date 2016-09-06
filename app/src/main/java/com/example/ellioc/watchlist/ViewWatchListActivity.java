@@ -44,6 +44,37 @@ public class ViewWatchListActivity extends ListActivity {
         setListAdapter(mAdapter);
 
         mAdapter.upDateEntries(omdbObjects);
+
+        ListView listView = getListView();
+        // Create a ListView-specific touch listener. ListViews are given special treatment because
+        // by default they handle touches for their list items... i.e. they're in charge of drawing
+        // the pressed state (the list selector), handling list item clicks, etc.
+        SwipeDismissListViewTouchListener touchListener =
+                new SwipeDismissListViewTouchListener(
+                        listView,
+                        new SwipeDismissListViewTouchListener.DismissCallbacks() {
+                            @Override
+                            public boolean canDismiss(int position) {
+                                return true;
+                            }
+
+                            @Override
+                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                                for (int position : reverseSortedPositions) {
+                                    watchListDbHelper.deleteObject(omdbObjects.get(position));
+                                    omdbObjects.remove(position);
+                                    mAdapter.upDateEntries(omdbObjects);
+//                                    ListViewAnimationHelper helper = new ListViewAnimationHelper(mAdapter,
+//                                            listView,
+//                                            omdbObjects);
+//                                    helper.animateRemoval(listView, listView.getChildAt(position));
+                                }
+                            }
+                        });
+        listView.setOnTouchListener(touchListener);
+        // Setting this scroll listener is required to ensure that during ListView scrolling,
+        // we don't look for swipes.
+        listView.setOnScrollListener(touchListener.makeScrollListener());
     }
 
 //    private View.OnTouchListener mTouchListener = new View.OnTouchListener() {

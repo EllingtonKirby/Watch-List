@@ -1,6 +1,7 @@
 package com.example.ellioc.watchlist;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -98,12 +100,17 @@ public class WatchListViewListAdapter extends BaseAdapter{
         TextView typeView = (TextView) itemView.findViewById(R.id.listItemType);
         typeView.setText(mEntries.get(position).getType());
 
+//        final ListView finParent = (ListView) parent;
         ImageButton imageButton = (ImageButton) itemView.findViewById(R.id.imageButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WatchListDbHelper watchListDbHelper = new WatchListDbHelper(mContext);
                 watchListDbHelper.deleteObject(mEntries.get(position));
+//                ListViewAnimationHelper helper = new ListViewAnimationHelper(WatchListViewListAdapter.this,
+//                        finParent,
+//                        mEntries);
+//                helper.animateRemoval(finParent, v);
                 mEntries.remove(position);
                 upDateEntries(mEntries);
             }
@@ -121,6 +128,7 @@ public class WatchListViewListAdapter extends BaseAdapter{
 
         return itemView;
     }
+
 
     public void upDateEntries(ArrayList<OmdbObject> entries) {
         mEntries = entries;
