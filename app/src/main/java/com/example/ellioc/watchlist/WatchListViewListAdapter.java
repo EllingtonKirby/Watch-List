@@ -1,5 +1,6 @@
 package com.example.ellioc.watchlist;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -105,14 +106,32 @@ public class WatchListViewListAdapter extends BaseAdapter{
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WatchListDbHelper watchListDbHelper = new WatchListDbHelper(mContext);
-                watchListDbHelper.deleteObject(mEntries.get(position));
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setTitle("Alert!!!!");
+                builder.setMessage("Are you sure you want to remove "+ mEntries.get(position).getTitle());
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        WatchListDbHelper watchListDbHelper = new WatchListDbHelper(mContext);
+                        watchListDbHelper.deleteObject(mEntries.get(position));
 //                ListViewAnimationHelper helper = new ListViewAnimationHelper(WatchListViewListAdapter.this,
 //                        finParent,
 //                        mEntries);
 //                helper.animateRemoval(finParent, v);
-                mEntries.remove(position);
-                upDateEntries(mEntries);
+                        mEntries.remove(position);
+                        upDateEntries(mEntries);
+                    }
+                });
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+                builder.create().show();
             }
         });
 
