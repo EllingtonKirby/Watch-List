@@ -1,7 +1,6 @@
 package com.example.ellioc.watchlist;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -17,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -89,18 +89,16 @@ public class SearchResultsFragment extends Fragment implements OmdbResultReceive
     }
 
     private void initDataSet(){
-        OmdbService.startActionGetMoviesByTitle(getActivity(), mParamQuery, resultReceiver);
+        OmdbIntentService.startActionGetMoviesByTitle(getActivity(), mParamQuery, resultReceiver);
     }
 
     public void onReceiveResult(int val, Bundle b){
         if(val == 0){
-            Log.i("JSON", b.getString("results"));
             try {
-                OmdbJSONParser jsonParser = new OmdbJSONParser();
-                mDataset = new ArrayList<>(jsonParser.parseMovieObjects(new JSONArray(b.getString("results"))));
+                mDataset = new ArrayList<>((List<OmdbObject>)b.getSerializable("results"));
                 mSearchResultsAdapter.updateEntries(mDataset);
             }
-            catch (JSONException e){
+            catch (Exception e){
                 e.printStackTrace();
             }
         }

@@ -19,7 +19,7 @@
         </activity>
 
         <service
-            android:name=".OmdbService"
+            android:name=".OmdbIntentService"
             android:exported="false" />
 
         <activity android:name=".DetailViewActivity" />

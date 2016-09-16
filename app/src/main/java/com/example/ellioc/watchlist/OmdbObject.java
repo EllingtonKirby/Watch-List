@@ -1,5 +1,7 @@
 package com.example.ellioc.watchlist;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -8,20 +10,50 @@ import java.io.Serializable;
 public class OmdbObject implements Serializable{
 
     private int id;
+
+    @SerializedName("Title")
     private String title;
+
+    @SerializedName("imdbID")
     private String movieId;
+
+    @SerializedName("Year")
     private String year;
+
+    @SerializedName("Poster")
     private String posterUrl;
+
+    @SerializedName("Type")
     private String type;
+
+    @SerializedName("Plot")
     private String plot;
+
+    @SerializedName("tomatoMeter")
     private String tomatoMeter;
+
+    @SerializedName("imdbRating")
     private String imdbRating;
+
+    @SerializedName("Genre")
     private String genre;
+
+    @SerializedName("Rated")
     private String rated;
+
+    @SerializedName("Runtime")
     private String runtime;
+
+    @SerializedName("Actors")
     private String actors;
+
+    @SerializedName("Director")
     private String directors;
+
+    @SerializedName("Language")
     private String language;
+
+    @SerializedName("Writer")
     private String writers;
 
 

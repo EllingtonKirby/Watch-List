@@ -10,15 +10,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 
 public class DetailViewActivity extends AppCompatActivity implements OmdbResultReceiver.Receiver{
     public OmdbResultReceiver omdbResultReceiver;
@@ -36,20 +32,18 @@ public class DetailViewActivity extends AppCompatActivity implements OmdbResultR
         omdbResultReceiver = new OmdbResultReceiver(new Handler());
         omdbResultReceiver.setReceiver(this);
 
-        OmdbService.startActionGetMovieInfoById(this, movieId, omdbResultReceiver);
+        OmdbIntentService.startActionGetMovieInfoById(this, movieId, omdbResultReceiver);
     }
 
 
     public void onReceiveResult(int val, Bundle bundle){
         if(val == 0){
-            Log.i("JSON", bundle.getString("results"));
             try {
-                OmdbJSONParser jsonParser = new OmdbJSONParser();
-                OmdbObject omdbObject = jsonParser.parseMovieById(new JSONObject(bundle.getString("results")));
-                OmdbService.startActionGetMoviePosterByURL(this, omdbObject.getPosterUrl(), omdbResultReceiver);
+                OmdbObject omdbObject = (OmdbObject) bundle.getSerializable("results");
+                OmdbIntentService.startActionGetMoviePosterByURL(this, omdbObject.getPosterUrl(), omdbResultReceiver);
                 inflateView(omdbObject);
             }
-            catch (JSONException e){
+            catch (Exception e){
                 e.printStackTrace();
             }
         }
