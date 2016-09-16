@@ -17,27 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchBarActivity">
-            <meta-data
-                android:name="android.app.default_searchable"
-                android:value=".OmdbSearchActivity" />
-        </activity>
-        <activity android:name=".OmdbSearchActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
-        </activity>
 
         <service
             android:name=".OmdbService"
             android:exported="false" />
 
-        <activity android:name=".OmdbSpecificMovieActivity" />
-        <activity android:name=".ViewWatchListActivity"></activity>
+        <activity android:name=".DetailViewActivity" />
     </application>
 
 </manifest>

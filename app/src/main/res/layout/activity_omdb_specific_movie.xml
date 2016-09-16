@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.ellioc.watchlist.OmdbSpecificMovieActivity"
+    tools:context=".DetailViewActivity"
     android:id="@+id/specific_movie_view_relative_layout">
 
     <RelativeLayout

@@ -16,4 +16,8 @@
     <string name="default_item_runtime_text">Runtime</string>
     <string name="default_item_language_text">Language</string>
     <string name="title_activity_omdb_specific_movie">OmdbSpecificMovieActivity</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

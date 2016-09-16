@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ellioc.watchlist.SearchActivity">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="100dp">
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_default_text"
+            android:id="@+id/search"
+            android:drawableStart="@drawable/ic_search_black_24dp"
+            android:imeOptions="actionSearch"
+            android:inputType="text"/>
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>

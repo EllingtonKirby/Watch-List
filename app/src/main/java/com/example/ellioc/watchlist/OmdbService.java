@@ -161,7 +161,6 @@ public class OmdbService extends IntentService {
      */
     private void handleActionGetMovieById(String movieId, final ResultReceiver receiver) {
         // TODO: Handle action Baz
-        // throw new UnsupportedOperationException("Not yet implemented");
         Log.i("ID", movieId);
         final String getMoviesByIdBaseURL = "http://www.omdbapi.com/?i=";
         final String getMoviesByIdParams = "&plot=short&r=json&tomatoes=true";
