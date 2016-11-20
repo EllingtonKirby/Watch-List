@@ -1,1 +1,13 @@
+/.gradle
 /build
+.idea/
+/.idea
+/.idea/*
+
+*.log
+gradle.properties
+captures
+keystores
+debug.properties
+release.properties
+version.properties

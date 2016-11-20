@@ -9,8 +9,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+        android:windowSoftInputMode="stateHidden" >
+        <activity android:name=".ui.landing.LandingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,10 +20,10 @@
         </activity>
 
         <service
-            android:name=".OmdbIntentService"
+            android:name=".data.api.OmdbIntentService"
             android:exported="false" />
 
-        <activity android:name=".DetailViewActivity" />
+        <activity android:name=".ui.detail.DetailViewActivity" />
     </application>
 
 </manifest>
